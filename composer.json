@@ -1,0 +1,19 @@
+{
+    "name": "flerex/spain-gas",
+    "description": "A PHP client for the Geoportal Gasolineras API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Flerex",
+            "email": "flerex@icloud.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Flerex\\SpainGas\\": "src/"
+        }
+    },
+}
