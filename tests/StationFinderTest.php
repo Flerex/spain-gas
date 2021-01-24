@@ -1,0 +1,66 @@
+<?php
+
+namespace Flerex\SpainGas\Tests;
+
+use Flerex\SpainGas\Dtos\GasStationLocation;
+use Flerex\SpainGas\Enums\Province;
+use Flerex\SpainGas\Enums\Fuel;
+use Flerex\SpainGas\Enums\Rank;
+use Flerex\SpainGas\Enums\SalesType;
+use Flerex\SpainGas\Enums\ServiceType;
+use Flerex\SpainGas\Exceptions\NetworkException;
+use Flerex\SpainGas\GasApi;
+use PHPUnit\Framework\TestCase;
+
+class StationFinderTest extends TestCase
+{
+    /** @test
+     * When not filtering by fuel parameters price and rank are provided.
+     *
+     * @throws NetworkException
+     */
+    public function obtain_stations_for_province()
+    {
+        $stations = GasApi::gasStations()
+            ->province(Province::A_CORUNA())
+            ->get();
+
+        $this->assertIsArray($stations);
+        $this->assertTrue(count($stations) > 0);
+
+        /** @var GasStationLocation $station */
+        $station = $stations[0];
+
+        $this->assertInstanceOf(GasStationLocation::class, $station);
+        $this->assertIsFloat($station->latitude);
+        $this->assertIsFloat($station->longitude);
+        $this->assertNull($station->price);
+        $this->assertNull($station->rank);
+    }
+
+    /**
+     * @test When filtering by fuel parameters price and rank are provided.
+     * @throws NetworkException
+     */
+    public function obtain_stations_for_province_by_fuel()
+    {
+        $stations = GasApi::gasStations()
+            ->province(Province::A_CORUNA())
+            ->salesType(SalesType::PUBLIC())
+            ->serviceType(ServiceType::ANY())
+            ->fuel(Fuel::CNG())
+            ->get();
+
+        $this->assertIsArray($stations);
+        $this->assertTrue(count($stations) > 0);
+
+        /** @var GasStationLocation $station */
+        $station = $stations[0];
+
+        $this->assertInstanceOf(GasStationLocation::class, $station);
+        $this->assertIsFloat($station->latitude);
+        $this->assertIsFloat($station->longitude);
+        $this->assertIsFloat($station->price);
+        $this->assertInstanceOf(Rank::class, $station->rank);
+    }
+}
