@@ -1,7 +1,12 @@
 {
     "name": "flerex/spain-gas",
     "description": "A PHP client for the Geoportal Gasolineras API",
+    "keywords": ["geoportal", "gasolineras", "client"],
     "type": "library",
+    "support": {
+        "issues": "https://github.com/flerex/spain-gas/issues",
+        "source": "https://github.com/flerex/spain-gas"
+    },
     "license": "MIT",
     "authors": [
         {
