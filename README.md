@@ -26,8 +26,8 @@ Here is an example where we are retrieving all CNG gas stations in Spain:
 use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\GasApi;
 
+// ...
 $stations = GasApi::gasStations()
     ->fuel(Fuel::CNG())
     ->get();
-// ...
 ```
