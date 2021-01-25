@@ -9,7 +9,6 @@ use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Rank;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
-use Flerex\SpainGas\Enums\Town;
 use Flerex\SpainGas\Exceptions\NetworkException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -21,7 +20,7 @@ class StationLocationBuilder
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/busquedaEstacionesMapa';
 
     private ?Province $province;
-    private ?Town $town;
+    private ?int $town;
     private Fuel $fuel;
     private ServiceType $serviceType;
     private SalesType $salesType;
@@ -46,10 +45,10 @@ class StationLocationBuilder
     /**
      * Sets the town of the builder.
      *
-     * @param Town $town
+     * @param int $town
      * @return $this
      */
-    public function town(Town $town): StationLocationBuilder
+    public function town(int $town): StationLocationBuilder
     {
         $this->town = $town;
         return $this;
@@ -132,9 +131,9 @@ class StationLocationBuilder
         return json_encode(
             [
                 'tipoEstacion' => 'EESS',
-                'idProvincia' => (string)$this->province,
-                'idMunicipio' => (string)$this->town,
-                'idProducto' => (string)$this->fuel->getValue(),
+                'idProvincia' => $this->province,
+                'idMunicipio' => $this->town,
+                'idProducto' => $this->fuel->getValue(),
                 'rotulo' => '',
                 'eessEconomicas' => false,
                 'conPlanesDescuento' => false,
@@ -143,8 +142,8 @@ class StationLocationBuilder
                 'calle' => null,
                 'numero' => null,
                 'codPostal' => null,
-                'tipoVenta' => (string)$this->salesType->getValue(),
-                'tipoServicio' => (string)$this->serviceType->getValue(),
+                'tipoVenta' => $this->salesType->getValue(),
+                'tipoServicio' => $this->serviceType->getValue(),
                 'idOperador' => null,
                 'nombrePlan' => '',
                 'idTipoDestinatario' => null,

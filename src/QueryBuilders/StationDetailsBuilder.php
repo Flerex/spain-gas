@@ -9,7 +9,6 @@ use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
-use Flerex\SpainGas\Enums\Town;
 use Flerex\SpainGas\Exceptions\NetworkException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -20,7 +19,7 @@ class StationDetailsBuilder
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/busquedaEstacionesInfo';
 
     private ?Province $province;
-    private ?Town $town;
+    private ?int $town;
     private Fuel $fuel;
     private ServiceType $serviceType;
     private SalesType $salesType;
@@ -49,12 +48,12 @@ class StationDetailsBuilder
     }
 
     /**
-     * Sets the town of the builder.
+     * Sets the town of the builder according to its ID.
      *
-     * @param Town $town
+     * @param int $town
      * @return $this
      */
-    public function town(Town $town): StationDetailsBuilder
+    public function town(int $town): StationDetailsBuilder
     {
         $this->town = $town;
         return $this;
@@ -166,9 +165,9 @@ class StationDetailsBuilder
     {
         $parameters = [
             'tipoEstacion' => 'EESS',
-            'idProvincia' => (string)$this->province,
-            'idMunicipio' => (string)$this->town,
-            'idProducto' => (string)$this->fuel->getValue(),
+            'idProvincia' =>$this->province,
+            'idMunicipio' => $this->town,
+            'idProducto' => $this->fuel->getValue(),
             'rotulo' => '',
             'eessEconomicas' => false,
             'conPlanesDescuento' => false,
@@ -177,8 +176,8 @@ class StationDetailsBuilder
             'calle' => null,
             'numero' => null,
             'codPostal' => null,
-            'tipoVenta' => (string)$this->salesType->getValue(),
-            'tipoServicio' => (string)$this->serviceType->getValue(),
+            'tipoVenta' => $this->salesType->getValue(),
+            'tipoServicio' => $this->serviceType->getValue(),
             'idOperador' => null,
             'nombrePlan' => '',
             'idTipoDestinatario' => null,
@@ -211,7 +210,7 @@ class StationDetailsBuilder
 
         $station->address = new Address(
             $jsonObject->address,
-            new Town($jsonObject->localidad),
+            $jsonObject->localidad,
             new Province($jsonObject->provincia),
             $jsonObject->codPostal
         );
