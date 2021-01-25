@@ -35,11 +35,11 @@ In case you need more information about what filters are available check the Doc
 
 ## Endpoints
 Here is a list of all available endpoints, and the differences in the data retrieved.
-| Endpoint          | Documentation                                                                           | Ranking                  | Prices                   | Geographical Location    | Station Information      | Town ID                  |
-|-------------------|-----------------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
-| gasStations       | [Wiki](https://github.com/Flerex/spain-gas/wiki/Gas-Stations-endpoint)                  | :heavy_multiplication_x: | :heavy_check_mark: \*    | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_multiplication_x: |
-| locateGasStations | [Wiki](https://github.com/Flerex/spain-gas/wiki/Locate-Gas-Stations-endpoint-endpoint)  | :heavy_check_mark: \*    | :heavy_check_mark: \*    | :heavy_check_mark:       | :heavy_multiplication_x: | :heavy_multiplication_x: |
-| towns             | [Wiki](https://github.com/Flerex/spain-gas/wiki/Towns-endpoint-endpoint)                | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_check_mark:       |
+| Endpoint          | Documentation                                                                 | Ranking                  | Prices                   | Geographical Location    | Station Information      | Town ID                  |
+|-------------------|-------------------------------------------------------------------------------|--------------------------|--------------------------|--------------------------|--------------------------|--------------------------|
+| gasStations       | [Wiki](https://github.com/Flerex/spain-gas/wiki/Gas-Stations-endpoint)        | :heavy_multiplication_x: | :heavy_check_mark: \*    | :heavy_check_mark:       | :heavy_check_mark:       | :heavy_multiplication_x: |
+| locateGasStations | [Wiki](https://github.com/Flerex/spain-gas/wiki/Locate-Gas-Stations-endpoint) | :heavy_check_mark: \*    | :heavy_check_mark: \*    | :heavy_check_mark:       | :heavy_multiplication_x: | :heavy_multiplication_x: |
+| towns             | [Wiki](https://github.com/Flerex/spain-gas/wiki/Towns-endpoint)               | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_check_mark:       |
 
 \* Only returned when filtering by fuel.
 ## Example
@@ -106,6 +106,6 @@ Changelog can be found in [releases](https://github.com/flerex/spain-gas/release
 ## Copyright and License
 
 [Spain Gas](https://github.com/flerex/spain-gas) was written by [Flerex](https://flerex.dev) and is released under the
-[MIT License](LICENSE.md).
+[MIT License](LICENSE).
 
 © Flerex 2020
