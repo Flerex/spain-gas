@@ -3,7 +3,7 @@ Spain Gas is a PHP client that act as a wrapper around Spain's Geoportal Gasolin
 
 - Obtain **data about all gas stations** in Spain: addresses, geolocation, provided services, schedules and much more!
 - Exact **prices of fuel** for every gas station in the country, updated multiple times every day.
-- Beautiful designed interface with design patterns like the builder pattern.
+- Beautifully designed interface using design patterns like the builder pattern.
 - Statically typed with the latest PHP typing features. 
 - Properly tested with coverage higher than 80%.
 
@@ -27,6 +27,10 @@ All the API's endpoints are available by using the GasApi class. Currently, ther
 - **`locateGasStations`**: This endpoint provides the geographical location of gas stations. The only difference with the previous endpoint is that provides a ranking of the gas station according to the price of the fuel (if specified as a filter).
 
 **NOTE:** All the aforementioned endpoints will provide the price of the fuel if specified by using the query filter `fuel`. Otherwise, it will always return `null`.
+
+Every endpoint returns an instance of a Builder class, which provides methods to filter the request to be made. Once you selected your filtering parameters, a call to method `get` is required to actually run the request and retrieve the data.
+
+In case you need more information about what filters are available check the Documentation.
   
 ## Example
 
