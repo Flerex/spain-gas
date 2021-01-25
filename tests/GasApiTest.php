@@ -3,20 +3,20 @@
 namespace Flerex\SpainGas\Tests;
 
 use Flerex\SpainGas\GasApi;
-use Flerex\SpainGas\QueryBuilders\StationFinderBuilder;
+use Flerex\SpainGas\QueryBuilders\StationLocationBuilder;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 final class GasApiTest extends TestCase
 {
     /** @test
-     * The StationFinderBuilder must be accessible through this class.
+     * The StationLocationBuilder must be accessible through this class.
      */
     public function provides_interface_with_station_finder()
     {
-        $gasStationFinderBuilder = GasApi::gasStations();
+        $gasStationFinderBuilder = GasApi::locateGasStations();
 
-        $this->assertInstanceOf(StationFinderBuilder::class, $gasStationFinderBuilder);
+        $this->assertInstanceOf(StationLocationBuilder::class, $gasStationFinderBuilder);
     }
 
     /** @test

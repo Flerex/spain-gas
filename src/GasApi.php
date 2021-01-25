@@ -5,19 +5,19 @@ namespace Flerex\SpainGas;
 
 use Flerex\SpainGas\Contracts\GasApi as GasApiContract;
 use Flerex\SpainGas\QueryBuilders\StationDetailsBuilder;
-use Flerex\SpainGas\QueryBuilders\StationFinderBuilder;
+use Flerex\SpainGas\QueryBuilders\StationLocationBuilder;
 
 final class GasApi implements GasApiContract
 {
 
     /** @inheritDoc */
-    public static function gasStations(): StationFinderBuilder
+    public static function locateGasStations(): StationLocationBuilder
     {
-        return new StationFinderBuilder;
+        return new StationLocationBuilder;
     }
 
     /** @inheritDoc */
-    public static function stationsDetails(): StationDetailsBuilder
+    public static function gasStations(): StationDetailsBuilder
     {
         return new StationDetailsBuilder;
     }

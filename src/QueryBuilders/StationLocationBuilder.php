@@ -16,7 +16,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 use UnexpectedValueException;
 
-class StationFinderBuilder
+class StationLocationBuilder
 {
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/busquedaEstacionesMapa';
 
@@ -37,7 +37,7 @@ class StationFinderBuilder
      * @param Province $province
      * @return $this
      */
-    public function province(Province $province): StationFinderBuilder
+    public function province(Province $province): StationLocationBuilder
     {
         $this->province = $province;
         return $this;
@@ -49,7 +49,7 @@ class StationFinderBuilder
      * @param Town $town
      * @return $this
      */
-    public function town(Town $town): StationFinderBuilder
+    public function town(Town $town): StationLocationBuilder
     {
         $this->town = $town;
         return $this;
@@ -61,7 +61,7 @@ class StationFinderBuilder
      * @param Fuel $fuel
      * @return $this
      */
-    public function fuel(Fuel $fuel): StationFinderBuilder
+    public function fuel(Fuel $fuel): StationLocationBuilder
     {
         $this->fuel = $fuel;
         return $this;
@@ -73,7 +73,7 @@ class StationFinderBuilder
      * @param ServiceType $serviceType
      * @return $this
      */
-    public function serviceType(ServiceType $serviceType): StationFinderBuilder
+    public function serviceType(ServiceType $serviceType): StationLocationBuilder
     {
         $this->serviceType = $serviceType;
         return $this;
@@ -85,7 +85,7 @@ class StationFinderBuilder
      * @param SalesType $salesType
      * @return $this
      */
-    public function salesType(SalesType $salesType): StationFinderBuilder
+    public function salesType(SalesType $salesType): StationLocationBuilder
     {
         $this->salesType = $salesType;
         return $this;

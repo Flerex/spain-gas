@@ -22,7 +22,7 @@ final class StationDetailsTest extends TestCase
      */
     public function obtain_stations_for_province()
     {
-        $stations = GasApi::gasStations()
+        $stations = GasApi::locateGasStations()
             ->province(Province::A_CORUNA())
             ->get();
 
@@ -47,7 +47,7 @@ final class StationDetailsTest extends TestCase
      */
     public function obtain_stations_for_province_by_fuel()
     {
-        $stations = GasApi::gasStations()
+        $stations = GasApi::locateGasStations()
             ->province(Province::A_CORUNA())
             ->salesType(SalesType::PUBLIC())
             ->serviceType(ServiceType::ANY())
