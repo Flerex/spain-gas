@@ -2,11 +2,6 @@
 
 namespace Flerex\SpainGas\Dtos;
 
-use Flerex\SpainGas\Enums\Province;
-use Flerex\SpainGas\Enums\Rank;
-use Flerex\SpainGas\Enums\SalesType;
-use Flerex\SpainGas\Enums\Town;
-
 final class Location
 {
     /**

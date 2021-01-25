@@ -4,8 +4,8 @@ namespace Flerex\SpainGas\Tests;
 
 use Flerex\SpainGas\Dtos\GasStationLocation;
 use Flerex\SpainGas\Dtos\Location;
-use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Fuel;
+use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Rank;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;

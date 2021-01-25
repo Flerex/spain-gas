@@ -4,19 +4,16 @@ namespace Flerex\SpainGas\QueryBuilders;
 
 use Flerex\SpainGas\Dtos\Address;
 use Flerex\SpainGas\Dtos\GasStation;
-use Flerex\SpainGas\Dtos\GasStationLocation;
 use Flerex\SpainGas\Dtos\Location;
 use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
-use Flerex\SpainGas\Enums\Rank;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
 use Flerex\SpainGas\Enums\Town;
 use Flerex\SpainGas\Exceptions\NetworkException;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
-use UnexpectedValueException;
 
 class StationDetailsBuilder
 {
