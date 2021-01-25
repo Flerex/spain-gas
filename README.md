@@ -1,4 +1,8 @@
+[!Header](https://github.com/flerex/spain-gas/blob/master/repo/header.png?raw=true)
 # Spain Gas
+[![Packagist Version](https://img.shields.io/packagist/v/flerex/spain-gas?label=Packagist)](https://packagist.org/packages/flerex/spain-gas)
+[![Total Downloads](https://img.shields.io/packagist/dt/flerex/spain-gas?label=Downloads)](https://packagist.org/packages/flerex/spain-gas)
+
 Spain Gas is a PHP client that act as a wrapper around Spain's Geoportal Gasolineras API. It has the following main features:
 
 - Obtain **data about all gas stations** in Spain: addresses, geolocation, provided services, schedules and much more!
