@@ -31,7 +31,13 @@ All the API's endpoints are available by using the GasApi class. Currently, ther
 Every endpoint returns an instance of a Builder class, which provides methods to filter the request to be made. Once you selected your filtering parameters, a call to method `get` is required to actually run the request and retrieve the data.
 
 In case you need more information about what filters are available check the Documentation.
-  
+
+| Endpoint          | Documentation                                                                          | Ranking                  | Prices               | Station Information      |
+|-------------------|----------------------------------------------------------------------------------------|--------------------------|----------------------|--------------------------|
+| gasStations       | [Wiki](https://github.com/Flerex/spain-gas/wiki/Gas-Stations-endpoint)                 | :heavy_multiplication_x: | :heavy_check_mark: * | :heavy_check_mark:       |
+| locateGasStations | [Wiki](https://github.com/Flerex/spain-gas/wiki/Locate-Gas-Stations-endpoint-endpoint) | :heavy_check_mark: *     | :heavy_check_mark: * | :heavy_multiplication_x: |
+
+\* Only returned when filtering by fuel. 
 ## Example
 
 ### Obtain Stations by Fuel
@@ -89,3 +95,13 @@ $stations = GasApi::locateGasStations()
 $cheapest = array_filter($stations, fn(GasStationLocation $station) => $station->rank->equals(Rank::CHEAP()));
 ```
 **NOTE:** We need to specify a fuel so that rankings are provided in return.
+
+## Changelog
+Changelog can be found in [releases](https://github.com/flerex/spain-gas/releases).
+
+## Copyright and License
+
+[Spain Gas](https://github.com/flerex/spain-gas) was written by [Flerex](https://flerex.dev) and is released under the
+[MIT License](LICENSE.md).
+
+© Flerex 2020
