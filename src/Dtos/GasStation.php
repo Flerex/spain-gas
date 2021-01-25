@@ -2,13 +2,15 @@
 
 namespace Flerex\SpainGas\Dtos;
 
+use DateTime;
 use Flerex\SpainGas\Enums\SalesType;
 
 final class GasStation
 {
     public int $id;
     public string $label;
-    public float $price;
+    public ?float $price;
+    public DateTime $priceLastUpdatedAt;
     public string $owner;
 
     public ?Address $address;

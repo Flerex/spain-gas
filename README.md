@@ -10,7 +10,7 @@ Spain Gas is a PHP client that act as a wrapper around Spain's Geoportal Gasolin
 ## Requirements
 - You need `composer` to be installed, either globally or locally in your project.
 - Compatible with **PHP 7.4 or higher**.
-- PHP's extensions needed: `ext-json`.
+- PHP's extensions needed: `ext-json` and `ext-simplexml`.
 
 ## Installation
 To install this package be sure to have `composer` installed and run the following command in your project's directory:

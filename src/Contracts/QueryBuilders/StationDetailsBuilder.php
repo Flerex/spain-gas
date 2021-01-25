@@ -6,6 +6,7 @@ use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
+use Flerex\SpainGas\Exceptions\LogicException;
 use Flerex\SpainGas\Exceptions\NetworkException;
 
 interface StationDetailsBuilder
@@ -77,6 +78,7 @@ interface StationDetailsBuilder
      *
      * @return array
      * @throws NetworkException
+     * @throws LogicException
      */
     public function get(): array;
 }

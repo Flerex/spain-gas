@@ -2,6 +2,7 @@
 
 namespace Flerex\SpainGas\QueryBuilders;
 
+use DateTime;
 use Flerex\SpainGas\Contracts\QueryBuilders\StationDetailsBuilder as StationDetailsBuilderContract;
 use Flerex\SpainGas\Dtos\Address;
 use Flerex\SpainGas\Dtos\GasStation;
@@ -10,6 +11,7 @@ use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
+use Flerex\SpainGas\Exceptions\LogicException;
 use Flerex\SpainGas\Exceptions\NetworkException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -93,8 +95,15 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         try {
             $body = $this->toJson();
             $response = $client->post(static::API_ENDPOINT_URL, compact('body'));
-            $data = json_decode($response->getBody());
-            return array_map(fn($s) => $this->jsonObjectToDto($s), $data->estaciones->listaEstaciones);
+            $data = simplexml_load_string($response->getBody());
+
+            if ($data === false) {
+                throw new LogicException("Could not parse the response.");
+            }
+
+            $data = json_decode(json_encode($data));
+
+            return array_map(fn($s) => $this->jsonObjectToDto($s), $data->estaciones);
         } catch (GuzzleException $e) {
             throw new NetworkException("Could not connect with the API gas stations endpoint.", $e);
         }
@@ -120,7 +129,7 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
     {
         $parameters = [
             'tipoEstacion' => 'EESS',
-            'idProvincia' =>$this->province,
+            'idProvincia' => $this->province,
             'idMunicipio' => $this->town,
             'idProducto' => $this->fuel->getValue(),
             'rotulo' => '',
@@ -158,34 +167,44 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
     {
         $station = new GasStation;
 
-        $station->id = $jsonObject->id;
-        $station->location = new Location($jsonObject->coordenadaX_dec, $jsonObject->coordenadaY_dec);
-        $station->price = $jsonObject->precio;
-        $station->owner = $jsonObject->precio;
-
-        $station->address = new Address(
-            $jsonObject->address,
-            $jsonObject->localidad,
-            new Province($jsonObject->provincia),
-            $jsonObject->codPostal
+        $station->id = $jsonObject->estacion->id;
+        $station->location = new Location(
+            $jsonObject->estacion->coordenadaX_dec, $jsonObject->estacion->coordenadaY_dec
         );
 
-        $station->salesType = new SalesType($jsonObject->tipoVenta);
+        $station->price = is_numeric($jsonObject->precio) ?  $jsonObject->precio : null;
 
-        $station->location = new Location($jsonObject->coordenadaY_dec, $jsonObject->coordenadaX_dec);
+        $station->priceLastUpdatedAt = DateTime::createFromFormat(
+            'd/m/Y H:i',
+            "{$jsonObject->estacion->fechaPvp} {$jsonObject->estacion->horaPvp}"
+        );
+        $station->owner = $jsonObject->estacion->operador;
 
-        $station->bioethanolPercentage = $jsonObject->porcBioetanol;
-        $station->bioalcoholPercentage = $jsonObject->porcBioalcohol;
+        $station->address = new Address(
+            trim($jsonObject->estacion->direccion),
+            trim($jsonObject->estacion->localidad),
+            trim($jsonObject->estacion->provincia),
+            trim($jsonObject->estacion->codPostal)
+        );
 
-        $station->hasCarWash = $jsonObject->servicios->lavado;
-        $station->hasWaterAir = $jsonObject->servicios->aguaAire;
-        $station->hasStore = $jsonObject->servicios->tienda;
-        $station->hasCoffeeShop = $jsonObject->servicios->cafeteria;
+        $station->salesType = new SalesType($jsonObject->estacion->tipoVenta);
 
-        $station->schedule = $jsonObject->horario;
+        $station->location = new Location(
+            $jsonObject->estacion->coordenadaY_dec, $jsonObject->estacion->coordenadaX_dec
+        );
 
-        $station->averageRating = $jsonObject->valoracion->valoracionMedia;
-        $station->numberRating = $jsonObject->valoracion->valoracionMedia;
+        $station->bioethanolPercentage = $jsonObject->estacion->porcBioetanol;
+        $station->bioalcoholPercentage = $jsonObject->estacion->porcBioalcohol;
+
+        $station->hasCarWash = $jsonObject->estacion->servicios->lavado;
+        $station->hasWaterAir = $jsonObject->estacion->servicios->aguaAire;
+        $station->hasStore = $jsonObject->estacion->servicios->tienda;
+        $station->hasCoffeeShop = $jsonObject->estacion->servicios->cafeteria;
+
+        $station->schedule = $jsonObject->estacion->horario;
+
+        $station->averageRating = $jsonObject->estacion->valoracion->valoracionMedia;
+        $station->numberRating = $jsonObject->estacion->valoracion->valoracionMedia;
 
         return $station;
     }
