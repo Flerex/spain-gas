@@ -13,7 +13,7 @@ use Flerex\SpainGas\Exceptions\NetworkException;
 use Flerex\SpainGas\GasApi;
 use PHPUnit\Framework\TestCase;
 
-final class StationFinderTest extends TestCase
+final class StationDetailsTest extends TestCase
 {
     /** @test
      * When not filtering by fuel parameters price and rank are provided.
@@ -32,6 +32,7 @@ final class StationFinderTest extends TestCase
         /** @var GasStationLocation $station */
         $station = $stations[0];
 
+        $this->assertIsNumeric($station->id);
         $this->assertInstanceOf(GasStationLocation::class, $station);
         $this->assertInstanceOf(Location::class, $station->location);
         $this->assertIsFloat($station->location->latitude);
@@ -59,6 +60,7 @@ final class StationFinderTest extends TestCase
         /** @var GasStationLocation $station */
         $station = $stations[0];
 
+        $this->assertIsNumeric($station->id);
         $this->assertInstanceOf(GasStationLocation::class, $station);
         $this->assertInstanceOf(Location::class, $station->location);
         $this->assertIsFloat($station->location->latitude);

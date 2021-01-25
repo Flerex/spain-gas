@@ -18,6 +18,7 @@ All the API's endpoints are available by using the GasApi class. Currently, ther
 
 - **`gasStations`**: This endpoint provides the geographical location of gas stations, subject to the selected filtering values
 such as a province or availability. If stations are queried by fuel type, the price and its price type is also provided.
+- **`stationsDetails`**: This endpoint is very handy when you need more details about a gas station apart from its pricing or geographical location.
   
 ## Example
 Here is an example where we are retrieving all CNG gas stations in Spain:

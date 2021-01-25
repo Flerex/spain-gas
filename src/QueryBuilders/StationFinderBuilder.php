@@ -3,6 +3,7 @@
 namespace Flerex\SpainGas\QueryBuilders;
 
 use Flerex\SpainGas\Dtos\GasStationLocation;
+use Flerex\SpainGas\Dtos\Location;
 use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Rank;
@@ -162,8 +163,7 @@ class StationFinderBuilder
         $station = new GasStationLocation;
 
         $station->id = $jsonObject->id;
-        $station->latitude = $jsonObject->coordenadaX_dec;
-        $station->longitude = $jsonObject->coordenadaY_dec;
+        $station->location = new Location($jsonObject->coordenadaY_dec, $jsonObject->coordenadaX_dec);
         $station->price = $jsonObject->precio;
 
         try {
