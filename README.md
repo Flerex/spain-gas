@@ -1,10 +1,16 @@
 # Spain Gas
 Spain Gas is a PHP client that act as a wrapper around Spain's Geoportal Gasolineras API. It has the following main features:
 
-- Compatible with **PHP 7.4 onwards**.
+- Obtain data about all gas stations in Spain: addresses, geolocation, provided services, schedules and much more!
+- Exact **prices of fuel** for every gas station in the country, updated multiple times every day.
+- Beautiful designed interface with design patterns like the builder pattern.
 - Statically typed with the latest PHP typing features. 
-- Beautifully designed using patterns like the Builder pattern.
-- Tested with coverage higher than 80%.
+- Properly tested with coverage higher than 80%.
+
+## Requirements
+- You need `composer` to be installed, either globally or locally in your project.
+- Compatible with **PHP 7.4 or higher*.
+- PHP's extensions needed: `ext-json`.
 
 ## Installation
 To install this package be sure to have `composer` installed and run the following command in your project's directory:
