@@ -31,4 +31,9 @@ final class Location
     {
         return new DegreesLocation($this->latitude, $this->longitude);
     }
+
+    public function __toString(): string
+    {
+        return $this->latitude . ", " . $this->longitude;
+    }
 }

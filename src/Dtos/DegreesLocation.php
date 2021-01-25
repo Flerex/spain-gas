@@ -9,7 +9,12 @@ final class DegreesLocation
 
     public function __construct(float $latitude, float $longitude)
     {
-       $this->latitude = new DegreesCoordinate($latitude, 'N', 'S');
-       $this->longitude = new DegreesCoordinate($longitude, 'E', 'W');
+        $this->latitude = new DegreesCoordinate($latitude, 'N', 'S');
+        $this->longitude = new DegreesCoordinate($longitude, 'E', 'W');
+    }
+
+    public function __toString(): string
+    {
+        return $this->latitude . ' ' . $this->longitude;
     }
 }
