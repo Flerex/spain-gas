@@ -13,16 +13,10 @@ final class GasStationLocation
     public int $id;
 
     /**
-     * Decimal latitude of the coordinates of the gas station.
-     * @var float
+     * Latitude object of the coordinates of the gas station.
+     * @var Location
      */
-    public float $latitude;
-
-    /**
-     * Decimal longitude of the coordinates of the gas station.
-     * @var float
-     */
-    public float $longitude;
+    public Location $location;
 
     /**
      * When fuel is specified as a filter, pricing in the gas station. Null otherwise,

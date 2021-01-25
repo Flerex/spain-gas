@@ -2,24 +2,30 @@
 
 namespace Flerex\SpainGas\Dtos;
 
-use Flerex\SpainGas\Enums\Province;
-use Flerex\SpainGas\Enums\Rank;
+use DateTime;
 use Flerex\SpainGas\Enums\SalesType;
-use Flerex\SpainGas\Enums\Town;
 
 final class GasStation
 {
     public int $id;
     public string $label;
+    public ?float $price;
+    public DateTime $priceLastUpdatedAt;
     public string $owner;
-    public string $address;
-    public string $postalCode;
-    public Province $province;
-    public Town $town;
+
+    public ?Address $address;
+
     public SalesType $salesType;
 
-    public float $latitude;
-    public float $longitude;
+    public Location $location;
+
+    public float $bioethanolPercentage;
+    public float $bioalcoholPercentage;
+
+    public bool $hasCarWash;
+    public bool $hasWaterAir;
+    public bool $hasStore;
+    public bool $hasCoffeeShop;
 
     public string $schedule;
 

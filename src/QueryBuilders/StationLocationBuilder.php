@@ -2,25 +2,26 @@
 
 namespace Flerex\SpainGas\QueryBuilders;
 
+use Flerex\SpainGas\Contracts\QueryBuilders\StationLocationBuilder as StationLocationBuilderContract;
 use Flerex\SpainGas\Dtos\GasStationLocation;
+use Flerex\SpainGas\Dtos\Location;
 use Flerex\SpainGas\Enums\Fuel;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Rank;
 use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
-use Flerex\SpainGas\Enums\Town;
 use Flerex\SpainGas\Exceptions\NetworkException;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 use UnexpectedValueException;
 
-class StationFinderBuilder
+class StationLocationBuilder implements StationLocationBuilderContract
 {
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/busquedaEstacionesMapa';
 
     private ?Province $province;
-    private ?Town $town;
+    private ?int $town;
     private Fuel $fuel;
     private ServiceType $serviceType;
     private SalesType $salesType;
@@ -30,72 +31,42 @@ class StationFinderBuilder
         $this->setDefaults();
     }
 
-    /**
-     * Sets the province of the builder.
-     *
-     * @param Province $province
-     * @return $this
-     */
-    public function province(Province $province): StationFinderBuilder
+    /** @inheritDoc */
+    public function province(Province $province): StationLocationBuilderContract
     {
         $this->province = $province;
         return $this;
     }
 
-    /**
-     * Sets the town of the builder.
-     *
-     * @param Town $town
-     * @return $this
-     */
-    public function town(Town $town): StationFinderBuilder
+    /** @inheritDoc */
+    public function town(int $town): StationLocationBuilderContract
     {
         $this->town = $town;
         return $this;
     }
 
-    /**
-     * Sets the fuel of the builder.
-     *
-     * @param Fuel $fuel
-     * @return $this
-     */
-    public function fuel(Fuel $fuel): StationFinderBuilder
+    /** @inheritDoc */
+    public function fuel(Fuel $fuel): StationLocationBuilderContract
     {
         $this->fuel = $fuel;
         return $this;
     }
 
-    /**
-     * Sets the service type of the builder.
-     *
-     * @param ServiceType $serviceType
-     * @return $this
-     */
-    public function serviceType(ServiceType $serviceType): StationFinderBuilder
+    /** @inheritDoc */
+    public function serviceType(ServiceType $serviceType): StationLocationBuilderContract
     {
         $this->serviceType = $serviceType;
         return $this;
     }
 
-    /**
-     * Sets the sales type of the builder.
-     *
-     * @param SalesType $salesType
-     * @return $this
-     */
-    public function salesType(SalesType $salesType): StationFinderBuilder
+    /** @inheritDoc */
+    public function salesType(SalesType $salesType): StationLocationBuilderContract
     {
         $this->salesType = $salesType;
         return $this;
     }
 
-    /**
-     * Sends a request to the API endpoint and returns its output.
-     *
-     * @return array
-     * @throws NetworkException
-     */
+    /** @inheritDoc */
     public function get(): array
     {
         $client = new GuzzleClient;
@@ -131,9 +102,9 @@ class StationFinderBuilder
         return json_encode(
             [
                 'tipoEstacion' => 'EESS',
-                'idProvincia' => (string)$this->province,
-                'idMunicipio' => (string)$this->town,
-                'idProducto' => (string)$this->fuel->getValue(),
+                'idProvincia' => $this->province,
+                'idMunicipio' => $this->town,
+                'idProducto' => $this->fuel->getValue(),
                 'rotulo' => '',
                 'eessEconomicas' => false,
                 'conPlanesDescuento' => false,
@@ -142,8 +113,8 @@ class StationFinderBuilder
                 'calle' => null,
                 'numero' => null,
                 'codPostal' => null,
-                'tipoVenta' => (string)$this->salesType->getValue(),
-                'tipoServicio' => (string)$this->serviceType->getValue(),
+                'tipoVenta' => $this->salesType->getValue(),
+                'tipoServicio' => $this->serviceType->getValue(),
                 'idOperador' => null,
                 'nombrePlan' => '',
                 'idTipoDestinatario' => null,
@@ -162,8 +133,7 @@ class StationFinderBuilder
         $station = new GasStationLocation;
 
         $station->id = $jsonObject->id;
-        $station->latitude = $jsonObject->coordenadaX_dec;
-        $station->longitude = $jsonObject->coordenadaY_dec;
+        $station->location = new Location($jsonObject->coordenadaY_dec, $jsonObject->coordenadaX_dec);
         $station->price = $jsonObject->precio;
 
         try {
