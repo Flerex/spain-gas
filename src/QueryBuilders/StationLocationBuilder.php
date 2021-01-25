@@ -2,6 +2,7 @@
 
 namespace Flerex\SpainGas\QueryBuilders;
 
+use Flerex\SpainGas\Contracts\QueryBuilders\StationLocationBuilder as StationLocationBuilderContract;
 use Flerex\SpainGas\Dtos\GasStationLocation;
 use Flerex\SpainGas\Dtos\Location;
 use Flerex\SpainGas\Enums\Fuel;
@@ -15,7 +16,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 use UnexpectedValueException;
 
-class StationLocationBuilder
+class StationLocationBuilder implements StationLocationBuilderContract
 {
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/busquedaEstacionesMapa';
 
@@ -30,72 +31,42 @@ class StationLocationBuilder
         $this->setDefaults();
     }
 
-    /**
-     * Sets the province of the builder.
-     *
-     * @param Province $province
-     * @return $this
-     */
-    public function province(Province $province): StationLocationBuilder
+    /** @inheritDoc */
+    public function province(Province $province): StationLocationBuilderContract
     {
         $this->province = $province;
         return $this;
     }
 
-    /**
-     * Sets the town of the builder.
-     *
-     * @param int $town
-     * @return $this
-     */
-    public function town(int $town): StationLocationBuilder
+    /** @inheritDoc */
+    public function town(int $town): StationLocationBuilderContract
     {
         $this->town = $town;
         return $this;
     }
 
-    /**
-     * Sets the fuel of the builder.
-     *
-     * @param Fuel $fuel
-     * @return $this
-     */
-    public function fuel(Fuel $fuel): StationLocationBuilder
+    /** @inheritDoc */
+    public function fuel(Fuel $fuel): StationLocationBuilderContract
     {
         $this->fuel = $fuel;
         return $this;
     }
 
-    /**
-     * Sets the service type of the builder.
-     *
-     * @param ServiceType $serviceType
-     * @return $this
-     */
-    public function serviceType(ServiceType $serviceType): StationLocationBuilder
+    /** @inheritDoc */
+    public function serviceType(ServiceType $serviceType): StationLocationBuilderContract
     {
         $this->serviceType = $serviceType;
         return $this;
     }
 
-    /**
-     * Sets the sales type of the builder.
-     *
-     * @param SalesType $salesType
-     * @return $this
-     */
-    public function salesType(SalesType $salesType): StationLocationBuilder
+    /** @inheritDoc */
+    public function salesType(SalesType $salesType): StationLocationBuilderContract
     {
         $this->salesType = $salesType;
         return $this;
     }
 
-    /**
-     * Sends a request to the API endpoint and returns its output.
-     *
-     * @return array
-     * @throws NetworkException
-     */
+    /** @inheritDoc */
     public function get(): array
     {
         $client = new GuzzleClient;

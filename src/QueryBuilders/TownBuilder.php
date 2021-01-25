@@ -2,6 +2,7 @@
 
 namespace Flerex\SpainGas\QueryBuilders;
 
+use Flerex\SpainGas\Contracts\QueryBuilders\TownBuilder as TownBuilderContract;
 use Flerex\SpainGas\Dtos\Town;
 use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Exceptions\MissingRequiredParameterException;
@@ -10,31 +11,20 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
 
-class TownBuilder
+class TownBuilder implements TownBuilderContract
 {
     private const API_ENDPOINT_URL = 'https://geoportalgasolineras.es/rest/getLocalidades';
 
     private Province $province;
 
-    /**
-     * Sets the province of the builder.
-     *
-     * @param Province $province
-     * @return $this
-     */
-    public function province(Province $province): TownBuilder
+    /** @inheritDoc */
+    public function province(Province $province): TownBuilderContract
     {
         $this->province = $province;
         return $this;
     }
 
-    /**
-     * Sends a request to the API endpoint and returns its output.
-     *
-     * @return array
-     * @throws NetworkException
-     * @throws MissingRequiredParameterException
-     */
+    /** @inheritDoc */
     public function get(): array
     {
 
