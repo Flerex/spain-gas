@@ -36,7 +36,8 @@ $stations = GasApi::gasStations()
     ->get();
 ```
 
-### Get all gas stations in A Coruña
+### Get specific town ID
+Let us suppose we needed to obtain all gas stations in A Coruña (city). To be able to filter by town in the `gasStations` endpoint, we will first need to retrieve the ID of the town.
 
 ```php
 use Flerex\SpainGas\Dtos\Town;
@@ -55,3 +56,26 @@ $stations = GasApi::gasStations()
     ->town($townId)
     ->get();
 ```
+
+### Get the price ranking
+Price rankings are used to categorize the price of some fuel in a gas station comparing it to their competitors. The algorithm used by the API is unknown.
+
+Unfortunately, rankings are only available in the `locateGasStations` endpoints.
+
+In the following example we are going to retrieve the cheapest self-service gas stations.
+
+```php
+use Flerex\SpainGas\Dtos\GasStationLocation;
+use Flerex\SpainGas\Enums\Rank;
+use Flerex\SpainGas\Enums\Fuel;
+use Flerex\SpainGas\Enums\ServiceType;
+use Flerex\SpainGas\GasApi;
+
+$stations = GasApi::locateGasStations()
+    ->serviceType(ServiceType::SELF_SERVICE())
+    ->fuel(Fuel::DIESEL_A())
+    ->get();
+
+$cheapest = array_filter($stations, fn(GasStationLocation $station) => $station->rank->equals(Rank::CHEAP()));
+```
+**NOTE:** We need to specify a fuel so that rankings are provided in return.
