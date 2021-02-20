@@ -172,10 +172,7 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         $station = new GasStation;
 
         $station->id = $jsonObject->estacion->id;
-        $station->label = empty(trim($jsonObject->estacion->rotulo) ? null : $jsonObject->estacion->rotulo;
-        $station->location = new Location(
-            $jsonObject->estacion->coordenadaX_dec, $jsonObject->estacion->coordenadaY_dec
-        );
+        $station->label = $jsonObject->estacion->rotulo;
 
         $station->price = is_numeric($jsonObject->precio) ? $jsonObject->precio : null;
 
