@@ -101,6 +101,10 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
                 throw new LogicException("Could not parse the response.");
             }
 
+            if ($data->count() == 0) {
+                return [];
+            }
+
             $data = json_decode(json_encode($data));
 
             return array_map(fn($s) => $this->jsonObjectToDto($s), $data->estaciones);

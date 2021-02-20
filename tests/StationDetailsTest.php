@@ -70,4 +70,20 @@ final class StationDetailsTest extends TestCase
         $this->assertInstanceOf(DateTime::class, $station->priceLastUpdatedAt);
         $this->assertNull($station->price);
     }
+
+    /** @test The special output when no station is found
+     *
+     * @throws NetworkException
+     * @throws LogicException
+     */
+    public function obtain_no_stations_for_query()
+    {
+        $stations = GasApi::gasStations()
+            ->province(Province::LUGO())
+            ->fuel(Fuel::HYDROGEN())
+            ->get();
+
+        $this->assertIsArray($stations);
+        $this->assertTrue(count($stations) == 0);
+    }
 }

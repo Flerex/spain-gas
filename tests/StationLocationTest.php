@@ -66,4 +66,19 @@ final class StationLocationTest extends TestCase
         $this->assertIsFloat($station->price);
         $this->assertInstanceOf(Rank::class, $station->rank);
     }
+
+    /** @test The special output when no station is found
+     *
+     * @throws NetworkException
+     */
+    public function obtain_no_stations_for_query()
+    {
+        $stations = GasApi::locateGasStations()
+            ->province(Province::LUGO())
+            ->fuel(Fuel::HYDROGEN())
+            ->get();
+
+        $this->assertIsArray($stations);
+        $this->assertTrue(count($stations) == 0);
+    }
 }
