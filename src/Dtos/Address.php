@@ -2,7 +2,6 @@
 
 namespace Flerex\SpainGas\Dtos;
 
-use Flerex\SpainGas\Enums\Province;
 use Flerex\SpainGas\Enums\Town;
 
 final class Address
