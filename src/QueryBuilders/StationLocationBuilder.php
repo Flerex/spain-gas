@@ -74,7 +74,7 @@ class StationLocationBuilder implements StationLocationBuilderContract
         try {
             $body = $this->toJson();
             $response = $client->post(static::API_ENDPOINT_URL, compact('body'));
-            $data = json_decode($response->getBody());
+            $data = json_decode($response->getBody()->getContents());
             return array_map(fn($s) => $this->jsonObjectToDto($s), $data->estaciones->listaEstaciones);
         } catch (GuzzleException $e) {
             throw new NetworkException("Could not connect with the API gas stations endpoint.", $e);

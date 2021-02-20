@@ -95,7 +95,7 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         try {
             $body = $this->toJson();
             $response = $client->post(static::API_ENDPOINT_URL, compact('body'));
-            $data = simplexml_load_string($response->getBody());
+            $data = simplexml_load_string($response->getBody()->getContents());
 
             if ($data === false) {
                 throw new LogicException("Could not parse the response.");

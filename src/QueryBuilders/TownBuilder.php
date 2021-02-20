@@ -39,7 +39,7 @@ class TownBuilder implements TownBuilderContract
                 'idProvincia' => $this->province->getValue(),
             ];
             $response = $client->post(static::API_ENDPOINT_URL, compact('query'));
-            $data = json_decode($response->getBody());
+            $data = json_decode($response->getBody()->getContents());
             return array_map(fn($s) => $this->jsonObjectToDto($s), $data->localidades);
         } catch (GuzzleException $e) {
             throw new NetworkException("Could not connect with the API gas stations endpoint.", $e);
