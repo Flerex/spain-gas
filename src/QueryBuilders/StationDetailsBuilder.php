@@ -95,6 +95,8 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         try {
             $body = $this->toJson();
             $response = $client->post(static::API_ENDPOINT_URL, compact('body'));
+
+
             $data = simplexml_load_string($response->getBody()->getContents());
 
             if ($data === false) {
@@ -105,9 +107,13 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
                 return [];
             }
 
-            $data = json_decode(json_encode($data));
 
-            return array_map(fn($s) => $this->jsonObjectToDto($s), $data->estaciones);
+            // Access "estaciones" tag directly to prevent it from being converted to an object
+            // instead of an array when it contains only one element.
+            $data = json_decode(json_encode($data->xpath("//estaciones")));
+
+
+            return array_map(fn($s) => $this->jsonObjectToDto($s), $data);
         } catch (GuzzleException $e) {
             throw new NetworkException("Could not connect with the API gas stations endpoint.", $e);
         }
