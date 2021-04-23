@@ -204,10 +204,10 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         $station->bioethanolPercentage = $jsonObject->estacion->porcBioetanol;
         $station->bioalcoholPercentage = $jsonObject->estacion->porcBioalcohol;
 
-        $station->hasCarWash = $jsonObject->estacion->servicios->lavado;
-        $station->hasWaterAir = $jsonObject->estacion->servicios->aguaAire;
-        $station->hasStore = $jsonObject->estacion->servicios->tienda;
-        $station->hasCoffeeShop = $jsonObject->estacion->servicios->cafeteria;
+        $station->hasCarWash = $jsonObject->estacion->servicios->lavado == "true";
+        $station->hasWaterAir = $jsonObject->estacion->servicios->aguaAire == "true";
+        $station->hasStore = $jsonObject->estacion->servicios->tienda == "true";
+        $station->hasCoffeeShop = $jsonObject->estacion->servicios->cafeteria == "true";
 
         $station->schedule = $jsonObject->estacion->horario;
 
