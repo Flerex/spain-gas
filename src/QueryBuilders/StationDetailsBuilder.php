@@ -195,7 +195,7 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
             trim($jsonObject->estacion->codPostal)
         );
 
-        $station->salesType = new SalesType($jsonObject->estacion->tipoVenta);
+        $station->salesType = new SalesType(strtoupper($jsonObject->estacion->tipoVenta));
 
         $station->location = new Location(
             $jsonObject->estacion->coordenadaY_dec, $jsonObject->estacion->coordenadaX_dec
