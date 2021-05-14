@@ -9,6 +9,7 @@ final class GasStation
 {
     public int $id;
     public string $label;
+    public string $labelRaw;
     public ?float $price;
     public DateTime $priceLastUpdatedAt;
     public string $owner;

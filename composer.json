@@ -20,7 +20,8 @@
         "myclabs/php-enum": "^1.7",
         "guzzlehttp/guzzle": "^7.2",
         "ext-json": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

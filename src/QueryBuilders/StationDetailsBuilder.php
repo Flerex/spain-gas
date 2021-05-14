@@ -13,6 +13,7 @@ use Flerex\SpainGas\Enums\SalesType;
 use Flerex\SpainGas\Enums\ServiceType;
 use Flerex\SpainGas\Exceptions\LogicException;
 use Flerex\SpainGas\Exceptions\NetworkException;
+use Flerex\SpainGas\Utils\APIParsingUtils;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use stdClass;
@@ -178,7 +179,8 @@ class StationDetailsBuilder implements StationDetailsBuilderContract
         $station = new GasStation;
 
         $station->id = $jsonObject->estacion->id;
-        $station->label = $jsonObject->estacion->rotulo;
+        $station->labelRaw = $jsonObject->estacion->rotulo;
+        $station->label = APIParsingUtils::beautifyLabel($jsonObject->estacion->rotulo);
 
         $station->price = is_numeric($jsonObject->precio) ? $jsonObject->precio : null;
 
