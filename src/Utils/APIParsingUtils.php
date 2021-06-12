@@ -18,6 +18,8 @@ final class APIParsingUtils
         'CH2M', 'DGV', 'C.T.', 'U.S.', 'V.C.', 'CDT', 'R.R.', 'SCL', 'A.I.E.', 'BP', 'A.N.', 'U.S.Coop.',
         'J.A.', 'S.L',
 
+        'SBC', 'HAM', 'EDP',
+
         'de', 'en', 'del', 'la', 'las', 'el', 'los'
     ];
 
